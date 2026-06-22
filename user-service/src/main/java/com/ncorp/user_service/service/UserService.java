@@ -23,7 +23,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
     public UserDto createUser(@RequestBody UserDto userDto){
-        log.info("Creating user: {}", userDto);
         final User createdUser =  User.builder()
                 .name(userDto.getName())
                 .surname(userDto.getSurname())
@@ -51,13 +50,11 @@ public class UserService {
     }
 
     public UserDto getUserById(Long id) {
-        log.info("Retrieving user by id: {}", id);
         final Optional<User> user = userRepository.findById(id);
         return user.map(this::toDto).orElse(null);
     }
 
     public void updateUser(Long id, UserDto userDto) {
-        log.info("Updating user: {}", userDto);
         final Optional<User> user = userRepository.findById(id);
         if(user.isEmpty()) {
             throw new UserNotFoundException("User not found");
@@ -72,7 +69,6 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        log.info("Deleting user: {}", id);
         try{
             userRepository.deleteById(id);
         }catch (UserNotFoundException e) {
