@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class LoggingAspect {
-    @Pointcut("execution(* com.ncorp.user_service.*.*(..))")
+    @Pointcut("execution(* com.ncorp.user_service..*.*(..))")
     public void serviceMethods(){}
 
     @Around("controllerMethods()")

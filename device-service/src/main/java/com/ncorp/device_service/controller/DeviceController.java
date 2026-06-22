@@ -31,6 +31,8 @@ public class DeviceController {
 
     @PostMapping("/create")
     public ResponseEntity<DeviceDto> createDevice(@RequestBody DeviceDto deviceDto){
+        System.out.println("Hello");
+        System.out.println(deviceDto);
         return ResponseEntity.ok(deviceService.createDevice(deviceDto));
     }
 
