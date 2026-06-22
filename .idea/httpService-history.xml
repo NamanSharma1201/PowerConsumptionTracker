@@ -882,6 +882,58 @@
             </ReqHistory>
           </value>
         </entry>
+        <entry key="35">
+          <value>
+            <ReqHistory>
+              <option name="body" value="" />
+              <option name="contentType" value="application/x-www-form-urlencoded" />
+              <option name="fileNames">
+                <array />
+              </option>
+              <option name="headers">
+                <map />
+              </option>
+              <option name="host" value="http://127.0.0.1:8081/api/v1/device/1" />
+              <option name="id" value="35" />
+              <option name="method" value="GET" />
+              <option name="params">
+                <map>
+                  <entry key="id" value="0" />
+                </map>
+              </option>
+              <option name="res" value="{&quot;id&quot;:1,&quot;name&quot;:&quot;Samsung&quot;,&quot;type&quot;:&quot;SPEAKER&quot;,&quot;location&quot;:&quot;living room&quot;,&quot;userId&quot;:1}" />
+              <option name="time" value="2026-06-22 17:37:37" />
+              <option name="uri" value="" />
+            </ReqHistory>
+          </value>
+        </entry>
+        <entry key="36">
+          <value>
+            <ReqHistory>
+              <option name="body" value="{&#10;&#10;  &quot;name&quot;: &quot;MI&quot;,&#10;  &quot;type&quot;: &quot;CAMERA&quot;,&#10;  &quot;location&quot;: &quot;HALL&quot;,&#10;  &quot;userId&quot;: 1&#10;}" />
+              <option name="contentType" value="application/json" />
+              <option name="fileNames">
+                <array />
+              </option>
+              <option name="headers">
+                <map>
+                  <entry key="Content-Type" value="application/json" />
+                </map>
+              </option>
+              <option name="host" value="http://127.0.0.1:8081/api/v1/device/1" />
+              <option name="id" value="36" />
+              <option name="method" value="PUT" />
+              <option name="params">
+                <map>
+                  <entry key="id" value="0" />
+                </map>
+              </option>
+              <option name="res" value="{&quot;id&quot;:1,&quot;name&quot;:&quot;MI&quot;,&quot;type&quot;:&quot;CAMERA&quot;,&quot;location&quot;:&quot;HALL&quot;,&quot;userId&quot;:1}" />
+              <option name="time" value="2026-06-22 17:38:57" />
+              <option name="uri" value="" />
+            </ReqHistory>
+          </value>
+        </entry>
       </map>
     </option>
   </component>
