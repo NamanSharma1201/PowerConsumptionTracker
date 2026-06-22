@@ -1,9 +1,9 @@
-package com.ncorp.user_service.aspect;
+package com.ncorp.device_service.aspect;
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
@@ -13,15 +13,16 @@ import java.util.concurrent.TimeUnit;
 @Component
 @Slf4j
 public class ExecutionTimeAspect {
-    @Pointcut("execution(* com.ncorp.user_service.controller.*.*(..))")
-    public void controllerMethods(){}
+    @Pointcut("execution(* com.ncorp.*.*(..))")
+    void controllerMethods(){}
 
     @Around("controllerMethods()")
-    public Object measureExecutionTime(org.aspectj.lang.ProceedingJoinPoint pjp) throws Throwable {
+    public Object measureExecutionTime(ProceedingJoinPoint pjp){
         long start = System.nanoTime();
-
         try {
             return pjp.proceed();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
         } finally {
             long end = System.nanoTime();
             long elapsedNs =start - end;

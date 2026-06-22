@@ -2,11 +2,11 @@ package com.ncorp.user_service.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.TimeUnit;
 
 @Aspect
 @Component
@@ -15,14 +15,20 @@ public class LoggingAspect {
     @Pointcut("execution(* com.ncorp.user_service.*.*(..))")
     public void serviceMethods(){}
 
-    @Before("serviceMethods()")
-    public void logBefore(JoinPoint joinPoint){
-        log.info("Calling service method: {} with arguments: {}", joinPoint.getSignature().getName(), joinPoint.getArgs());
-    }
+    @Around("controllerMethods()")
+    public Object measureExecutionTime(ProceedingJoinPoint pjp){
+        long start = System.nanoTime();
+        try {
+            return pjp.proceed();
+        } catch (Throwable e) {
+            throw new RuntimeException(e);
+        } finally {
+            long end = System.nanoTime();
+            long elapsedNs =start - end;
+            long elapsedMs = TimeUnit.NANOSECONDS.toMillis(elapsedNs);
+            String signature = pjp.getSignature().toShortString();
+            log.info("Controller method {} executed in : {} ms", signature, elapsedMs);
 
-    @AfterReturning(pointcut = "serviceMethods()", returning = "result")
-    public void logAfterReturning(JoinPoint joinPoint, Object result){
-        log.info("Service methord: {}, returned: {}",
-                joinPoint.getSignature().getName(), result);
+        }
     }
 }
