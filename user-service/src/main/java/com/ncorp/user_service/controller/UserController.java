@@ -1,6 +1,7 @@
 package com.ncorp.user_service.controller;
 
 import com.ncorp.user_service.dto.UserDto;
+import com.ncorp.user_service.exception.UserNotFoundException;
 import com.ncorp.user_service.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class UserController {
         try {
             userService.updateUser(id, userDto);
             return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
-        }catch (IllegalArgumentException e){
+        }catch (UserNotFoundException e){
             return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
         }
     }
@@ -51,7 +52,7 @@ public class UserController {
         try {
             userService.deleteUser(id);
             return ResponseEntity.noContent().build();
-        }catch (IllegalArgumentException e){
+        }catch (UserNotFoundException e){
             return new ResponseEntity<>("User not found", HttpStatus.BAD_REQUEST);
         }
     }

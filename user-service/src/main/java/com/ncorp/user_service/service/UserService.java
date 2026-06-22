@@ -2,6 +2,7 @@ package com.ncorp.user_service.service;
 
 import com.ncorp.user_service.dto.UserDto;
 import com.ncorp.user_service.entity.User;
+import com.ncorp.user_service.exception.UserNotFoundException;
 import com.ncorp.user_service.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -59,7 +60,7 @@ public class UserService {
         log.info("Updating user: {}", userDto);
         final Optional<User> user = userRepository.findById(id);
         if(user.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
+            throw new UserNotFoundException("User not found");
         }
         user.get().setName(userDto.getName());
         user.get().setSurname(userDto.getSurname());
@@ -74,8 +75,8 @@ public class UserService {
         log.info("Deleting user: {}", id);
         try{
             userRepository.deleteById(id);
-        }catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("User not found");
+        }catch (UserNotFoundException e) {
+            throw new UserNotFoundException("User not found");
         }
     }
 }
