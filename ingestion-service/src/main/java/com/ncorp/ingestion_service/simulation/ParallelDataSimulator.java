@@ -28,7 +28,7 @@ public class ParallelDataSimulator implements CommandLineRunner {
     @Value("${simulation.endpoint}")
     private String ingestionEndpoint;
 
-    @Value("${simulation.parallel-thread}")
+    @Value("${simulation.parallel-threads}")
     private int parallelThreads;
 
     @Value("${simulation.requests-per-interval}")
@@ -36,7 +36,7 @@ public class ParallelDataSimulator implements CommandLineRunner {
 
     private final ExecutorService executorService;
 
-    public ParallelDataSimulator( ){
+    public ParallelDataSimulator(){
         this.executorService = Executors.newCachedThreadPool();
         ((ThreadPoolExecutor)executorService).setCorePoolSize(parallelThreads);
     }
