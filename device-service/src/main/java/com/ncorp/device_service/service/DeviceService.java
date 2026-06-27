@@ -4,6 +4,7 @@ import com.ncorp.device_service.dto.DeviceDto;
 import com.ncorp.device_service.entity.Device;
 import com.ncorp.device_service.exception.DeviceNotFoundException;
 import com.ncorp.device_service.repository.DeviceRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+@Slf4j
 @Service
 public class DeviceService {
     private final DeviceRepository deviceRepository;
@@ -70,7 +72,8 @@ public class DeviceService {
     }
 
     public List<DeviceDto> getAllDevicesByUserId(Long userId) {
-        List<Device> devices = deviceRepository.findUserById(userId);
+        List<Device> devices = deviceRepository.findAllByUserId(userId);
+        log.info(devices.toString());
         return devices.stream()
                 .map(this::mapToDto)
                 .toList();

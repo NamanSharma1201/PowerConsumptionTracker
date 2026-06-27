@@ -65,7 +65,7 @@ public class DeviceController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<DeviceDto>> getAllDevicesByUserId(@PathVariable Long userId){
-        List<DeviceDto> devices = deviceService.getALLDevicesByUserId(userId);
+        List<DeviceDto> devices = deviceService.getAllDevicesByUserId(userId);
         return ResponseEntity.ok(devices);
     }
 
