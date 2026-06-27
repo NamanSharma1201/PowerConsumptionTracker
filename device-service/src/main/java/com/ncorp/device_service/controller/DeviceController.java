@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/device")
 public class DeviceController {
@@ -58,6 +60,13 @@ public class DeviceController {
 
 
         }
+    }
+
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<DeviceDto>> getAllDevicesByUserId(@PathVariable Long userId){
+        List<DeviceDto> devices = deviceService.getALLDevicesByUserId(userId);
+        return ResponseEntity.ok(devices);
     }
 
 }

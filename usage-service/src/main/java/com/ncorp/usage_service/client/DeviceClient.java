@@ -35,7 +35,7 @@ public class DeviceClient {
     public List<DeviceDto> getAllDevicesForUser(Long userId) {
         String url = UriComponentsBuilder.
                 fromUriString(baseUrl)
-                .path("/{userId}")
+                .path("/user/{userId}")
                 .buildAndExpand(userId)
                 .toUriString();
 

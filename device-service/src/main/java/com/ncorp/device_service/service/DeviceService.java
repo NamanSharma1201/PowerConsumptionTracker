@@ -7,6 +7,10 @@ import com.ncorp.device_service.repository.DeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
+
 @Service
 public class DeviceService {
     private final DeviceRepository deviceRepository;
@@ -63,5 +67,12 @@ public class DeviceService {
             throw new DeviceNotFoundException("Device not found");
         }
         deviceRepository.deleteById(id);
+    }
+
+    public List<DeviceDto> getAllDevicesByUserId(Long userId) {
+        List<Device> devices = deviceRepository.findUserById(userId);
+        return devices.stream()
+                .map(this::mapToDto)
+                .toList();
     }
 }
