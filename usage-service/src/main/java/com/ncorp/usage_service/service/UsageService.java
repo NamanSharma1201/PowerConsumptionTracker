@@ -11,6 +11,7 @@ import com.ncorp.kafka.event.EnergyUsageEvent;
 import com.ncorp.usage_service.client.DeviceClient;
 import com.ncorp.usage_service.client.UserClient;
 import com.ncorp.usage_service.dto.DeviceDto;
+import com.ncorp.usage_service.dto.UsageDto;
 import com.ncorp.usage_service.dto.UserDto;
 import com.ncorp.usage_service.modal.DeviceEnergy;
 import lombok.extern.slf4j.Slf4j;
@@ -173,5 +174,10 @@ from(bucket: "%s")
         }
 
 
+    }
+
+    public UsageDto getXDaysUsageForUser(Long userId, int days) {
+        log.info("Getting usage for user {} days", days);
+        final List<DeviceDto> devices = deviceClient.getAllDevicesForUser(userId);
     }
 }
