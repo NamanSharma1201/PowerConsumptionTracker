@@ -8,6 +8,7 @@ import org.springframework.web.servlet.function.*;
 
 import java.net.URI;
 
+import static org.springframework.cloud.gateway.server.mvc.filter.FilterFunctions.setPath;
 import static org.springframework.cloud.gateway.server.mvc.filter.BeforeFilterFunctions.uri;
 import static org.springframework.cloud.gateway.server.mvc.handler.GatewayRouterFunctions.route;
 import static org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.http;
@@ -33,6 +34,16 @@ public class UserServiceRoutes {
                         request-> ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
                                 .body("User service is down"))
                 .build();
+    }
+
+
+    @Bean
+    public RouterFunction<ServerResponse> userServiceOpenApiDocs(){
+        return route("user-service-api-docs")
+                .route(RequestPredicates.path("docs/user-service/v3/api-docs"), http())
+                .before(uri("http://localhost:8080"))
+                .filter(setPath("v3/api-docs")).build();
+
     }
 
 }
